@@ -1,0 +1,24 @@
+server:
+  port: 8003
+  use-forward-headers: true
+  tomcat:
+    remote-ip-header: x-forwarded-for
+    protocol-header: x-forwarded-proto
+spring:
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
+  rabbitmq:
+    host: 172.16.1.32
+    port: 5672
+    username: guest
+    password: guest
+
+
+# CVS files
+tube: /data/tube.csv
+# RabbitMQ
+rabbit-queue: path
+rabbit-exchange: drones-exchange
+rabbit-queue-flight-path: fligt-path
+rabbit-queue-reports: reports

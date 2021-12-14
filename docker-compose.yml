@@ -1,0 +1,41 @@
+version: '3'
+networks:
+  app_subnet:
+    external: true
+services:
+  rabbitmq:
+    container_name: rabbitmq
+    image: 'rabbitmq:management'
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      app_subnet:
+        ipv4_address: ${IP_RABBITMQ}
+
+  drone-service:
+    container_name: drone-service
+    image: drone:latest
+    ports:
+      - "8002:8002"
+    build: ./drone-service/
+    environment:
+      - IP_DRONE= ${IP_DRONE}
+    networks:
+      app_subnet:
+        ipv4_address: ${IP_DRONE}
+
+  dispatcher-service:
+    container_name: dispatcher-service
+    image: dispatcher:latest
+    ports:
+      - "8001:8001"
+    build: ./dispatcher-service/
+    environment:
+      - IP_DISPATCHER= ${IP_DISPATCHER}
+    networks:
+      app_subnet:
+        ipv4_address: ${IP_DISPATCHER}
+
+
+

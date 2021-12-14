@@ -1,0 +1,14 @@
+### Project ###
+.classpath
+.project
+.idea/
+.settings/
+target/
+drone-service/logs/
+dispatcher-service/logs/
+
+### IDE: IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr

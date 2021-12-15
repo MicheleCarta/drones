@@ -17,7 +17,7 @@ import org.springframework.messaging.handler.annotation.support.MessageHandlerMe
 
 @Configuration
 public class RabbitConfig implements RabbitListenerConfigurer{
-    @Value("${rabbit-queue}")
+    @Value("${rabbit-queue-reports}")
     private  String QUEUE;
     @Value("${rabbit-exchange}")
     private String EXCHANGE;

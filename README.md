@@ -9,6 +9,13 @@ Make sure to have the following tools installed on your machine :
 
 ## Docker
     ./build.sh
+
+## RabbitMQ Management
+    go to: 
+    http://172.16.1.32:15672/
+    user: guest
+    psw:  guest
+        
    
 ## Start Simulation
      http://172.16.1.5:8001/dispatcher/start

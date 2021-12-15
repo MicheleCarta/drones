@@ -24,3 +24,4 @@ tube: /data/tube.csv
 rabbit-queue: path
 rabbit-exchange: drones-exchange
 rabbit-queue-flight-path: fligt-path
+rabbit-queue-reports: reports

@@ -10,26 +10,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.stream.Collectors;
 
 @Component
-public class FlightManager {
-    private final DistanceMeter distanceMeter;
+public class DroneManager {
+    private final DistanceMeterManager distanceMeterManager;
     private final TubesParser parser;
     private final ProducerService producerService;
     @Value("${tube}")
     private String tubes;
 
     @Autowired
-    public FlightManager(DistanceMeter distanceMeter, TubesParser parser, ProducerService producerService) {
-        this.distanceMeter = distanceMeter;
+    public DroneManager(DistanceMeterManager distanceMeterManager, TubesParser parser, ProducerService producerService) {
+        this.distanceMeterManager = distanceMeterManager;
         this.parser = parser;
         this.producerService = producerService;
     }
@@ -37,7 +33,7 @@ public class FlightManager {
     public List<ReportDTO> reportBuilder(FlightPathDTO flightPathDTO) {
         List<ReportDTO> reports = new ArrayList<>();
 
-           StorageManager.getTubes().stream().filter(k -> distanceMeter.validatorTubes(flightPathDTO, k.getLatitude(), k.getLongitude()))
+           StorageManager.getTubes().stream().filter(k -> distanceMeterManager.validatorTubes(flightPathDTO, k.getLatitude(), k.getLongitude()))
                     .forEach(t -> {
                         ReportDTO reportDTO = new ReportDTO();
                         reportDTO.setConditions(generateRandomColor());
@@ -57,7 +53,7 @@ public class FlightManager {
             RemoveItemTask(FlightPathDTO flightPathDTO) { dto = flightPathDTO; }
             public void run() {
                 tubeList.stream().
-                        filter(k -> distanceMeter.validatorTubes(dto,k.getLatitude(),k.getLongitude()))
+                        filter(k -> distanceMeterManager.validatorTubes(dto,k.getLatitude(),k.getLongitude()))
                         .forEach(t -> {
                             ReportDTO reportDTO = new ReportDTO();
                             reportDTO.setConditions(Conditions.HEAVY);

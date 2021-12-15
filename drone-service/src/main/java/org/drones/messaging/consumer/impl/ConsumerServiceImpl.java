@@ -1,6 +1,6 @@
 package org.drones.messaging.consumer.impl;
 
-import org.drones.business.FlightManager;
+import org.drones.business.DroneManager;
 import org.drones.dto.FlightPathDTO;
 import org.drones.dto.JsonSupport;
 import org.drones.messaging.consumer.iface.ConsumerService;
@@ -18,15 +18,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class ConsumerServiceImpl implements ConsumerService {
     private final JsonSupport jsonSupport;
-    private final FlightManager flightManager;
+    private final DroneManager droneManager;
     private final RabbitTemplate rabbitTemplate;
     @Value("${rabbit-queue-flight-path}")
     private String queue;
 
     @Autowired
-    public ConsumerServiceImpl(JsonSupport jsonSupport, FlightManager flightManager, RabbitTemplate rabbitTemplate) {
+    public ConsumerServiceImpl(JsonSupport jsonSupport, DroneManager droneManager, RabbitTemplate rabbitTemplate) {
         this.jsonSupport = jsonSupport;
-        this.flightManager = flightManager;
+        this.droneManager = droneManager;
         this.rabbitTemplate = rabbitTemplate;
     }
 
@@ -40,7 +40,7 @@ public class ConsumerServiceImpl implements ConsumerService {
         String bodyMessage = new String(message.getBody());
         FlightPathDTO flightPathDTO = new FlightPathDTO();
         flightPathDTO = (FlightPathDTO) jsonSupport.convertToObject(bodyMessage, flightPathDTO);
-        flightManager.reportBuilder(flightPathDTO);
+        droneManager.reportBuilder(flightPathDTO);
 
     }
 }

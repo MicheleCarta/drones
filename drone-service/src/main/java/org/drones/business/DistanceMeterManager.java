@@ -9,8 +9,8 @@ import org.drones.dto.FlightPathDTO;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DistanceMeter {
-    private static final Logger logger = LogManager.getLogger(DistanceMeter.class);
+public class DistanceMeterManager {
+    private static final Logger logger = LogManager.getLogger(DistanceMeterManager.class);
 
     public boolean validatorTubes(FlightPathDTO flightPathDTO, final double lat, final double lng) {
         boolean res = false;
